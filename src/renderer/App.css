@@ -2,6 +2,11 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
+html {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   position: relative;
   color: white;
@@ -14,12 +19,26 @@ body {
   );
   font-family: sans-serif;
   overflow-y: hidden;
+  margin: 0;
+  /*
   display: flex;
   justify-content: center;
   align-items: center;
+  */
 }
 
-button {
+#root {
+  height: 100%;
+  /* grid container settings */
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    'main'
+    'footer';
+}
+
+.btn {
   background-color: white;
   padding: 10px 20px;
   border-radius: 10px;
@@ -33,7 +52,7 @@ button {
   opacity: 0.9;
 }
 
-button:hover {
+.btn:hover {
   transform: scale(1.05);
   opacity: 1;
 }
