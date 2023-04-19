@@ -1,9 +1,9 @@
-name: Publish
+name: Publish release
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - '*'
 
 jobs:
   publish:
@@ -44,3 +44,15 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm exec electron-builder -- --publish never --win --linux
+      - name: Create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # esto utilizará el token de acceso del repositorio para crear la release
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Descripción de la release.
+          draft: false
+          prerelease: false
+          artifacts: "release/build/*.exe,release/build/*.AppImage"
